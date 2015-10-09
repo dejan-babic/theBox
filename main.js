@@ -29,7 +29,7 @@ $(document).ready(function(){
     $('#btn').on('click', function(){
 
         $.ajax({
-            url: 'http://demo6147751.mockable.io/ninoslavgfd',
+            url: 'http://demo6147751.mockable.io/ninosla',
             method: 'GET',
             dataType: 'json',
             success: function(data){
@@ -40,7 +40,7 @@ $(document).ready(function(){
 
             },
             error: function(){
-                alert("API not reachable!")
+                $('#h1').html("Fatal Error! 404 - Page Not Found!");
                 }
         })
     });
