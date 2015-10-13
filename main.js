@@ -10,19 +10,52 @@ $(document).ready(function(){
     //});
 
     function render(val){
-        console.log(val);
-        $('#square').css({
-            "width" : val.width,
-            "height": val.height,
-            "background" : val.background,
-            "left": val.left + "%",
-            "top": val.top + "%",
-            "textAlign": val.textAlign,
-            "border": val.border,
-            "marginLeft": val.marginLeft,
-            "marginTop": val.marginTop,
-            "position": val.position
-        });
+        if(val){
+            console.log(val);
+            $('#square').css({
+                "width" : val.width,
+                "height": val.height,
+                "background" : val.background,
+                "left": val.left + "%",
+                "top": val.top + "%",
+                "textAlign": val.textAlign,
+                "border": val.border,
+                "marginLeft": val.marginLeft,
+                "marginTop": val.marginTop,
+                "position": val.position
+            });
+        }else{
+            val = defValue();
+            console.log(val);
+            /*$('#square').css({
+                "width" : val.width,
+                "height": val.height,
+                "background" : val.background,
+                "left": val.left + "%",
+                "top": val.top + "%",
+                "textAlign": val.textAlign,
+                "border": val.border,
+                "marginLeft": val.marginLeft,
+                "marginTop": val.marginTop,
+                "position": val.position
+            });*/
+        }
+    }
+
+    function defValue(){
+       return {
+            "id": "square",
+            "position": "absolute",
+            "left": 50 + "%",
+            "top": 50 + "%",
+            "textAlign": "center",
+            "border": 3 + "px solid black",
+            "width":300 + "px",
+            "height":300 + "px",
+            "marginLeft": -150 + "px",
+            "marginTop": -150 + "px",
+            "background": "red"
+       }
     }
 
     function defaultSquareValues(){
@@ -40,13 +73,8 @@ $(document).ready(function(){
         })
     }
 
-
-    function error(){
+    function errorMsg(){
         $('#h1').html("Fatal Error! 404 - API Not Reachable!");
-    }
-
-    function success(){
-        alert("API Not Reachable! Using default square values!");
     }
 
 
@@ -56,29 +84,22 @@ $(document).ready(function(){
             url: 'http://demo6147751.mockable.io/ninoslav',
             method: 'GET',
             dataType: 'json',
-            success: function(data){
-                render(data);
+            success: function(val){
+                render(val);
 
                     $('#btn').hide();
                     $('#square').show();
 
             },
             error: function(){
-                    success();
-                    defaultSquareValues();
-
-                    $('#btn').hide();
-                    $('#square').show();
+                errorMsg();
             }
 
         })
     });
 
-    $(document).keydown(function(e){
-
+    function arrows(e){
         var offset = $( "#square" ).offset();
-        var poz  = $("#square").position();
-        console.log(poz);
 
         switch (e.which){
             case 37:    //left arrow key
@@ -150,7 +171,11 @@ $(document).ready(function(){
                 }
                 break;
         }
+    }
 
+    $(document).keydown(function(e){
+
+        arrows(e);
     });
 });
 
