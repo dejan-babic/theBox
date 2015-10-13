@@ -12,7 +12,7 @@ $(document).ready(function(){
     function render(val){
         console.log(val);
         $('#square').css({
-           "width" : val.width,
+            "width" : val.width,
             "height": val.height,
             "background" : val.background,
             "left": val.left + "%",
@@ -25,11 +25,35 @@ $(document).ready(function(){
         });
     }
 
+    function defaultSquareValues(){
+        $('#square').css({
+            "width" : 300 + "px",
+            "height": 300 + "px",
+            "background": "red",
+            "left": 50 + "%",
+            "top": 50 + "%",
+            "textAlign": "center",
+            "border": 3 + "px solid black",
+            "marginLeft": -150 + "px",
+            "marginTop": -150 + "px",
+            "position": "absolute"
+        })
+    }
+
+
+    function error(){
+        $('#h1').html("Fatal Error! 404 - API Not Reachable!");
+    }
+
+    function success(){
+        alert("API Not Reachable! Using default square values!");
+    }
+
 
     $('#btn').on('click', function(){
 
         $.ajax({
-            url: 'http://demo6147751.mockable.io/ninosla',
+            url: 'http://demo6147751.mockable.io/ninoslav',
             method: 'GET',
             dataType: 'json',
             success: function(data){
@@ -40,14 +64,21 @@ $(document).ready(function(){
 
             },
             error: function(){
-                $('#h1').html("Fatal Error! 404 - Page Not Found!");
-                }
+                    success();
+                    defaultSquareValues();
+
+                    $('#btn').hide();
+                    $('#square').show();
+            }
+
         })
     });
 
     $(document).keydown(function(e){
 
         var offset = $( "#square" ).offset();
+        var poz  = $("#square").position();
+        console.log(poz);
 
         switch (e.which){
             case 37:    //left arrow key
